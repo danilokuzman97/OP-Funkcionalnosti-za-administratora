@@ -32,7 +32,23 @@ function ubaciArtikle(){
     tr.appendChild(tdNaziv)
     tr.appendChild(tdCena)
 
+    tr.addEventListener('click', function(){
+      prikaziDetaljeArtikla(artikli[i])
+    })
+
     tabela.appendChild(tr)
   }
+}
+
+function prikaziDetaljeArtikla(artikal){
+  let p = document.createElement("p")
+
+  p.innerHTML = "Naziv: " + artikal.naziv + "<br>" + "Cena: " + artikal.cena + "Opis: " + artikal.opis
+
+  let detaljiArtikla = document.querySelector("#detaljiArtikla")
+
+  detaljiArtikla.innerHTML = ''
+
+  detaljiArtikla.appendChild(p)
 }
 document.addEventListener("DOMContentLoaded", ubaciArtikle)
