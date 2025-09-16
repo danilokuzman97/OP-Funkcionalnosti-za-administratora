@@ -8,7 +8,7 @@ class Artikal{
 
 const artikli = [
   new Artikal("monitor", 165, "opisMonitora"),
-  new Artikal("TV", 650, "opisTva"),
+  new Artikal("TV", 650, "opisTelevizora"),
   new Artikal("Mis", 20, "opisMisa")
 ]
 
@@ -43,7 +43,7 @@ function ubaciArtikle(){
 function prikaziDetaljeArtikla(artikal){
   let p = document.createElement("p")
 
-  p.innerHTML = "Naziv: " + artikal.naziv + "<br>" + "Cena: " + artikal.cena + "Opis: " + artikal.opis
+  p.innerHTML = "Naziv: " + artikal.naziv + "<br>" + "Cena: " + artikal.cena + "<br>" + "Opis: " + artikal.opis
 
   let detaljiArtikla = document.querySelector("#detaljiArtikla")
 
@@ -51,4 +51,30 @@ function prikaziDetaljeArtikla(artikal){
 
   detaljiArtikla.appendChild(p)
 }
-document.addEventListener("DOMContentLoaded", ubaciArtikle)
+
+function dodajArtikalUTabelu(artikli){
+
+  let btn = document.querySelector("#dugme")
+  btn.addEventListener('click', function(reload){
+    reload.preventDefault();
+
+    const forma = document.querySelector("#forma")
+
+  const formData = new FormData(forma)
+
+  const naziv = formData.get("naziv")
+  const cena = formData.get("cena")
+  const opis = formData.get("opis")
+
+  const noviArtikal = new Artikal(naziv, cena, opis)
+
+  artikli.push(noviArtikal)
+  ubaciArtikle()
+
+  })
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  ubaciArtikle()
+  dodajArtikalUTabelu(artikli)
+})
