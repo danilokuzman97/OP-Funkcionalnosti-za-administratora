@@ -6,11 +6,16 @@ class Artikal{
   }
 }
 
-const artikli = [
-  new Artikal("monitor", 165, "opisMonitora"),
-  new Artikal("TV", 650, "opisTelevizora"),
-  new Artikal("Mis", 20, "opisMisa")
-]
+let artikli = ucitajArtikleIzLocalStorage()
+
+if(artikli.lenght === 0){
+  artikli = [
+    { naziv: "monitor", cena: 165, opis: "opisMonitora" },
+    { naziv: "TV", cena: 650, opis: "opisTelevizora" },
+    { naziv: "Mis", cena: 20, opis: "opisMisa" }
+  ]
+  sacuvajArtikleULocalStorage(artikli)
+}
 
 function ubaciArtikle(){
   let tabela = document.querySelector('#telo')
@@ -70,9 +75,23 @@ function dodajArtikalUTabelu(artikli){
 
   artikli.push(noviArtikal)
   ubaciArtikle()
+  sacuvajArtikleULocalStorage(artikli)
 
   })
 }
+
+function sacuvajArtikleULocalStorage(artikli) {
+    localStorage.setItem("artikli", JSON.stringify(artikli))
+}
+
+function ucitajArtikleIzLocalStorage() {
+    let podaci = localStorage.getItem("artikli")
+    if (podaci) {
+        return JSON.parse(podaci)
+    }
+    return []
+}
+
 
 document.addEventListener("DOMContentLoaded", function(){
   ubaciArtikle()
